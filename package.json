@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chad Ostrowski",
+  "repository": "https://github.com/chadoh/kanban_app",
   "license": "ISC",
   "devDependencies": {
     "node-libs-browser": "^0.5.2",
