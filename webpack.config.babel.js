@@ -21,11 +21,6 @@ let common = {
         test: /.css$/,
         loaders: ['style', 'css'],
         include: path.resolve(ROOT_PATH, 'app')
-      },
-      {
-        test: /.jsx?$/,
-        loaders: ['babel'],
-        include: path.resolve(ROOT_PATH, 'app')
       }
     ]
   },
@@ -44,6 +39,15 @@ if (TARGET === 'start' || !TARGET) {
       hot: true,
       inline: true,
       progress: true
+    },
+    module: {
+      loaders: [
+        {
+          test: /.jsx?$/,
+          loaders: ['react-hot', 'babel'],
+          include: path.resolve(ROOT_PATH, 'app')
+        }
+      ]
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
