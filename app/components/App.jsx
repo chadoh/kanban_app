@@ -22,8 +22,9 @@ export default class App extends React.Component {
       ]
     }
 
-    this.editNote = this.editNote.bind(this)
     this.addNote = this.addNote.bind(this)
+    this.editNote = this.editNote.bind(this)
+    this.deleteNote = this.deleteNote.bind(this)
   }
 
   render() {
@@ -35,7 +36,7 @@ export default class App extends React.Component {
           onClick={this.addNote}>
           +
         </button>
-        <Notes items={notes} onEdit={this.editNote}/>
+        <Notes items={notes} onEdit={this.editNote} onDelete={this.deleteNote}/>
       </div>
     )
   }
@@ -45,6 +46,14 @@ export default class App extends React.Component {
     const noteIndex = this.findNote(noteId)
     if (noteIndex < 0) return;
     notes[noteIndex].task = task;
+    this.setState({notes: notes})
+  }
+
+  deleteNote(noteId) {
+    let notes = this.state.notes;
+    const noteIndex = this.findNote(noteId)
+    if (noteIndex < 0) return;
+    notes.splice(noteIndex, 1)
     this.setState({notes: notes})
   }
 
