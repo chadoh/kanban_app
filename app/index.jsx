@@ -1,6 +1,7 @@
 import React from 'react'
 import App from './components/App'
 import './main.css'
+import 'array.prototype.findindex'
 
 main()
 
