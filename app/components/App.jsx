@@ -22,6 +22,7 @@ export default class App extends React.Component {
       ]
     }
 
+    this.editNote = this.editNote.bind(this)
     this.addNote = this.addNote.bind(this)
   }
 
@@ -34,9 +35,13 @@ export default class App extends React.Component {
           onClick={this.addNote}>
           +
         </button>
-        <Notes items={notes}/>
+        <Notes items={notes} onEdit={this.editNote}/>
       </div>
     )
+  }
+
+  editNote(noteId, task) {
+    console.log(noteId, task)
   }
 
   addNote() {

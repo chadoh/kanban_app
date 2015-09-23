@@ -2,6 +2,11 @@ import React from 'react'
 import Note from './Note'
 
 export default class Notes extends React.Component {
+  constructor(props) {
+    super(props)
+    this.renderNote = this.renderNote.bind(this)
+  }
+
   render() {
     const notes = this.props.items;
     return (
@@ -15,7 +20,8 @@ export default class Notes extends React.Component {
   renderNote(note) {
     return (
       <li key={`note${note.id}`} className="note">
-        <Note task={note.task}/>
+        <Note task={note.task}
+          onEdit={this.props.onEdit.bind(null, note.id)}/>
       </li>
     )
   }
