@@ -1,13 +1,16 @@
-var path = require('path')
-var HtmlwebpackPlugin = require('html-webpack-plugin')
-var webpack = require('webpack')
-var merge = require('webpack-merge')
+import path from 'path'
+import HtmlwebpackPlugin from 'html-webpack-plugin'
+import webpack from 'webpack'
+import merge from 'webpack-merge'
 
-var TARGET = process.env.npm_lifecycle_event;
-var ROOT_PATH = path.resolve(__dirname)
+let TARGET = process.env.npm_lifecycle_event;
+let ROOT_PATH = path.resolve(__dirname)
 
-var common = {
+let common = {
   entry: path.resolve(ROOT_PATH, 'app'),
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
     filename: 'bundle.js'
@@ -17,6 +20,11 @@ var common = {
       {
         test: /.css$/,
         loaders: ['style', 'css'],
+        include: path.resolve(ROOT_PATH, 'app')
+      },
+      {
+        test: /.jsx?$/,
+        loaders: ['babel'],
         include: path.resolve(ROOT_PATH, 'app')
       }
     ]
