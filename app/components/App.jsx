@@ -3,10 +3,17 @@ import React from 'react'
 import Notes from './Notes'
 import NoteStore from '../stores/NoteStore'
 import NoteActions from '../actions/NoteActions'
-import connect from '../decorators/connect'
+import connectToStores from 'alt/utils/connectToStores'
 
-@connect(NoteStore)
+@connectToStores
 export default class App extends React.Component {
+  static getStores(props) {
+    return [NoteStore]
+  }
+  static getPropsFromStores(props) {
+    return NoteStore.getState()
+  }
+
   render() {
     const notes = this.props.notes;
 
