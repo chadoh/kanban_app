@@ -8,7 +8,7 @@ import LaneActions from '../actions/LaneActions'
 export default class App extends React.Component {
   render() {
     return (
-      <div className="container">
+      <div>
         <button className='add-lane'
           onClick={this.addItem}>
           +
