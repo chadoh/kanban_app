@@ -1,6 +1,7 @@
 import uuid from 'node-uuid'
 import alt from '../libs/alt'
 import LaneActions from '../actions/LaneActions'
+import NoteActions from '../actions/NoteActions'
 import NoteStore from './NoteStore'
 
 class LaneStore {
@@ -15,6 +16,28 @@ class LaneStore {
     lane.notes = lane.notes || [];
     this.setState({
       lanes: lanes.concat(lane)
+    })
+  }
+  update({id, name}) {
+    let lanes = this.lanes;
+    let laneIndex = this.findLane(id)
+    if (laneIndex < 0) return;
+    lanes[laneIndex].name = name;
+    this.setState({lanes: lanes})
+  }
+  delete(id) {
+    let lanes = this.lanes;
+    const laneIndex = this.findLane(id)
+    if (laneIndex < 0) return;
+
+    setTimeout(() => {
+      lanes[laneIndex].notes.forEach((noteId) => {
+        NoteActions.delete(noteId)
+      })
+    }, 500)
+
+    this.setState({
+      lanes: lanes.slice(0,laneIndex).concat(lanes.slice(laneIndex + 1))
     })
   }
 
