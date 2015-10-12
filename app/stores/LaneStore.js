@@ -87,6 +87,10 @@ class LaneStore {
     if (laneIndex < 0) console.warn("Failed to find lane with id", id, "in", lanes);
     return laneIndex
   }
+
+  move({sourceId, targetId}) {
+    console.log('source', sourceId, 'target', targetId)
+  }
 }
 
 export default alt.createStore(LaneStore, 'LaneStore')
