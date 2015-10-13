@@ -5,7 +5,25 @@ import Editable from './Editable';
 import NoteStore from '../stores/NoteStore';
 import NoteActions from '../actions/NoteActions';
 import LaneActions from '../actions/LaneActions';
+import {DropTarget} from 'react-dnd';
+import ItemTypes from '../constants/itemTypes';
 
+const noteTarget = {
+  hover(targetProps, monitor) {
+    const sourceId = monitor.getItem().id;
+
+    if(!targetProps.lane.notes.length) {
+      LaneActions.attachToLane({
+        laneId: targetProps.lane.id,
+        noteId: sourceId
+      })
+    }
+  }
+}
+
+@DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
+  connectDropTarget: connect.dropTarget()
+}))
 export default class Lane extends React.Component {
   constructor(props) {
     super(props);
@@ -13,14 +31,14 @@ export default class Lane extends React.Component {
     const id = props.lane.id;
 
     this.addNote = this.addNote.bind(this, id);
-    this.deleteNote = this.deleteNote.bind(this, id);
+    this.deleteNote = this.deleteNote.bind(this);
     this.editName = this.editName.bind(this, id);
   }
 
   render() {
-    const {lane, ...props} = this.props;
+    const {connectDropTarget, lane, ...props} = this.props;
 
-    return (
+    return connectDropTarget(
       <div {...props}>
         <div className="lane-header">
           <Editable
@@ -58,8 +76,8 @@ export default class Lane extends React.Component {
     else LaneActions.delete(id)
   }
 
-  deleteNote(laneId, noteId) {
-    LaneActions.detachFromLane({laneId, noteId});
+  deleteNote(id) {
+    LaneActions.removeNote(id);
     NoteActions.delete(id);
   }
 }
