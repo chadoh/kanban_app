@@ -4,6 +4,7 @@
   "description": "Going through survivejs.com",
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
     "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
