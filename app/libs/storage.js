@@ -1,4 +1,4 @@
-export default (storage) => {
+export default (storage = localStorage) => {
   return {
     get: k => {
       try {
