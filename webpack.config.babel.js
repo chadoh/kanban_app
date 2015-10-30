@@ -3,8 +3,12 @@ import HtmlwebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 
+import pkg from './package.json'
+
 let TARGET = process.env.npm_lifecycle_event;
 let ROOT_PATH = path.resolve(__dirname)
+let APP_PATH = path.resolve(ROOT_PATH, 'app')
+let BUILD_PATH = path.resolve(ROOT_PATH, 'build')
 
 let common = {
   entry: path.resolve(ROOT_PATH, 'app'),
@@ -53,8 +57,21 @@ if (TARGET === 'start' || !TARGET) {
 
 if (TARGET === 'build') {
   module.exports = merge(common, {
+    entry: {
+      app: APP_PATH,
+      vendor: Object.keys(pkg.dependencies)
+    },
+    /* important! */
+    output: {
+      path: BUILD_PATH,
+      filename: '[name].[chunkhash].js'
+    },
     devtool: 'source-map',
     plugins: [
+      new webpack.optimize.CommonsChunkPlugin(
+        'vendor',
+        '[name].[chunkhash].js'
+      ),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false
