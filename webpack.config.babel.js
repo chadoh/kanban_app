@@ -2,6 +2,7 @@ import path from 'path'
 import HtmlwebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
+import Clean from 'clean-webpack-plugin'
 
 import pkg from './package.json'
 
@@ -68,6 +69,7 @@ if (TARGET === 'build') {
     },
     devtool: 'source-map',
     plugins: [
+      new Clean(['build']),
       new webpack.optimize.CommonsChunkPlugin(
         'vendor',
         '[name].[chunkhash].js'
