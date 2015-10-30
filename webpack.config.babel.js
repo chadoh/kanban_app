@@ -3,6 +3,7 @@ import HtmlwebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 import Clean from 'clean-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 import pkg from './package.json'
 
@@ -12,25 +13,20 @@ let APP_PATH = path.resolve(ROOT_PATH, 'app')
 let BUILD_PATH = path.resolve(ROOT_PATH, 'build')
 
 let common = {
-  entry: path.resolve(ROOT_PATH, 'app'),
+  entry: APP_PATH,
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
   output: {
-    path: path.resolve(ROOT_PATH, 'build'),
+    path: BUILD_PATH,
     filename: 'bundle.js'
   },
   module: {
     loaders: [
       {
-        test: /.css$/,
-        loaders: ['style', 'css'],
-        include: path.resolve(ROOT_PATH, 'app')
-      },
-      {
         test: /.jsx?$/,
         loaders: ['react-hot', 'babel'],
-        include: path.resolve(ROOT_PATH, 'app')
+        include: APP_PATH
       }
     ]
   },
@@ -50,6 +46,15 @@ if (TARGET === 'start' || !TARGET) {
       inline: true,
       progress: true
     },
+    module: {
+      loaders: [
+        {
+          test: /.css$/,
+          loaders: ['style', 'css'],
+          include: APP_PATH
+        },
+      ]
+    },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
     ]
@@ -68,8 +73,18 @@ if (TARGET === 'build') {
       filename: '[name].[chunkhash].js'
     },
     devtool: 'source-map',
+    module: {
+      loaders: [
+        {
+          test: /.css$/,
+          loader: ExtractTextPlugin.extract('style', 'css'),
+          include: APP_PATH
+        },
+      ]
+    },
     plugins: [
       new Clean(['build']),
+      new ExtractTextPlugin('styles.[chunkhash].css'),
       new webpack.optimize.CommonsChunkPlugin(
         'vendor',
         '[name].[chunkhash].js'
