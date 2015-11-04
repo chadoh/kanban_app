@@ -2,6 +2,7 @@ import 'array.prototype.findindex';
 import './main.css';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './components/App';
 import alt from './libs/alt';
 import storage from './libs/storage';
@@ -13,5 +14,5 @@ function main() {
   persist(alt, storage, 'app')
   const app = document.createElement('div')
   document.body.appendChild(app)
-  React.render(<App/>, app)
+  ReactDOM.render(<App/>, app)
 }
