@@ -1,18 +1,21 @@
-import path from 'path'
-import HtmlwebpackPlugin from 'html-webpack-plugin'
-import webpack from 'webpack'
-import merge from 'webpack-merge'
-import Clean from 'clean-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
+var path = require('path');
+var HtmlwebpackPlugin = require('html-webpack-plugin');
+var webpack = require('webpack');
+var merge = require('webpack-merge');
+var Clean = require('clean-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-import pkg from './package.json'
+var pkg = require('./package.json');
 
-let TARGET = process.env.npm_lifecycle_event;
-let ROOT_PATH = path.resolve(__dirname)
-let APP_PATH = path.resolve(ROOT_PATH, 'app')
-let BUILD_PATH = path.resolve(ROOT_PATH, 'build')
+var TARGET = process.env.npm_lifecycle_event;
+var ROOT_PATH = path.resolve(__dirname)
+var APP_PATH = path.resolve(ROOT_PATH, 'app')
+var BUILD_PATH = path.resolve(ROOT_PATH, 'build')
+var TEST_PATH = path.resolve(ROOT_PATH, 'test')
 
-let common = {
+process.env.BABEL_ENV = TARGET;
+
+var config = {
   entry: APP_PATH,
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -38,7 +41,7 @@ let common = {
 }
 
 if (TARGET === 'start' || !TARGET) {
-  module.exports = merge(common, {
+  config = merge(config, {
     devtool: 'eval-source-map',
     devServer: {
       historyApiFallback: true,
@@ -61,8 +64,37 @@ if (TARGET === 'start' || !TARGET) {
   })
 }
 
+if(TARGET === 'test' || TARGET === 'tdd') {
+  config = merge(config, {
+    entry: {}, // karma will set this
+    output: {}, // karma will set this
+    devtool: 'inline-source-map',
+    resolve: {
+      alias: {
+        'app': APP_PATH
+      }
+    },
+    module: {
+      preLoaders: [
+        {
+          test: /\.jsx?$/,
+          loaders: ['isparta-instrumenter'],
+          include: APP_PATH
+        }
+      ],
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          loaders: ['babel'],
+          include: TEST_PATH
+        }
+      ]
+    }
+  })
+}
+
 if (TARGET === 'build' || TARGET === 'stats') {
-  module.exports = merge(common, {
+  config = merge(config, {
     entry: {
       app: APP_PATH,
       vendor: Object.keys(pkg.dependencies)
@@ -103,3 +135,5 @@ if (TARGET === 'build' || TARGET === 'stats') {
     ]
   })
 }
+
+module.exports = config;
