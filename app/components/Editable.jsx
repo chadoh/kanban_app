@@ -45,7 +45,7 @@ export default class Note extends React.Component {
 
   renderDelete() {
     return (
-      <button className='delete-task' onClick={this.props.onDelete}>
+      <button className='delete' onClick={this.props.onDelete}>
         &times;
       </button>
     )
