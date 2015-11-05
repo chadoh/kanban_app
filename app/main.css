@@ -68,7 +68,7 @@ body {
 .note input {
   width: 100%;
 }
-.delete-task {
+.delete {
   float: right;
   background-color: transparent;
   border: none;
