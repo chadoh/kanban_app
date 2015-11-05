@@ -18,7 +18,10 @@ process.env.BABEL_ENV = TARGET;
 var config = {
   entry: APP_PATH,
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    alias: {
+      'app': APP_PATH
+    }
   },
   output: {
     path: BUILD_PATH,
@@ -28,7 +31,7 @@ var config = {
     loaders: [
       {
         test: /.jsx?$/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['babel'],
         include: APP_PATH
       }
     ]
@@ -69,11 +72,6 @@ if(TARGET === 'test' || TARGET === 'tdd') {
     entry: {}, // karma will set this
     output: {}, // karma will set this
     devtool: 'inline-source-map',
-    resolve: {
-      alias: {
-        'app': APP_PATH
-      }
-    },
     module: {
       preLoaders: [
         {

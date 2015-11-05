@@ -4,7 +4,7 @@ import {
   findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 import assert from 'assert';
-import Editable from 'app/components/Editable.jsx';
+import Editable from 'app/components/Editable';
 
 describe('Editable', () => {
   it('renders value', () => {
