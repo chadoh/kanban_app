@@ -33,4 +33,25 @@ describe('Editable', () => {
 
     assert.equal(input.value, value);
   })
+
+  it('triggers onEdit', () => {
+    let triggered = false;
+    const newValue = 'whoa now';
+    const onEdit = (val) => {
+      triggered = true;
+      assert.equal(val, newValue);
+    };
+    const component = renderIntoDocument(
+      <Editable value={':-D'} onEdit={onEdit} />
+    );
+    const valueComponent = findRenderedDOMComponentWithClass(component, 'value');
+    Simulate.click(valueComponent);
+
+    const input = findRenderedDOMComponentWithTag(component, 'input');
+    input.value = newValue;
+
+    Simulate.blur(input);
+
+    assert.equal(triggered, true);
+  })
 })
