@@ -32,6 +32,7 @@
     "phantomjs": "^1.9.18",
     "phantomjs-polyfill": "0.0.1",
     "react-addons-test-utils": "^0.14.2",
+    "react-dnd-test-backend": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "style-loader": "^0.12.4",
     "webpack": "^1.12.1",
