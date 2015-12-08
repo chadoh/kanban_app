@@ -1,7 +1,7 @@
 import React from 'react';
 import Lane from './Lane';
 
-export default class Lanes extends React.Component {
+class Lanes extends React.Component {
   render() {
     const lanes = this.props.items;
 
@@ -12,3 +12,13 @@ export default class Lanes extends React.Component {
     return <Lane className="lane" key={`lane${lane.id}`} lane={lane} />;
   }
 }
+
+Lanes.propTypes = {
+  items: React.PropTypes.array,
+}
+
+Lanes.defaultProps = {
+  items: []
+}
+
+export default Lanes

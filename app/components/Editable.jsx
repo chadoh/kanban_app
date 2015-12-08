@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class Note extends React.Component {
+class Editable extends React.Component {
   constructor(props) {
     super(props)
     this.finishEdit = this.finishEdit.bind(this)
@@ -62,3 +62,17 @@ export default class Note extends React.Component {
     if (e.key === "Enter") this.finishEdit(e)
   }
 }
+
+Editable.propTypes = {
+  value: React.PropTypes.string,
+  onEdit: React.PropTypes.func.isRequired,
+  onDelete: React.PropTypes.func,
+}
+
+Editable.defaultProps = {
+  value: '',
+  onDelete: () => {},
+}
+
+
+export default Editable
