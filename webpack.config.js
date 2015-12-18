@@ -28,6 +28,14 @@ var config = {
     filename: 'bundle.js'
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: ['jshint'],
+        // define an include so we check just the files we need
+        include: APP_PATH
+      }
+    ],
     loaders: [
       {
         test: /.jsx?$/,
