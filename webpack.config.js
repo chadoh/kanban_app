@@ -28,6 +28,13 @@ var config = {
     filename: 'bundle.js'
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: ['eslint'],
+        include: APP_PATH
+      }
+    ],
     loaders: [
       {
         test: /.jsx?$/,
