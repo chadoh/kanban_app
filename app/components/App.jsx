@@ -12,7 +12,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <button className='add-lane'
+        <button className="add-lane"
           onClick={this.addItem}>
           +
         </button>

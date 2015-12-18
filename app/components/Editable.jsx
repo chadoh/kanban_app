@@ -37,7 +37,7 @@ class Editable extends React.Component {
   renderValue() {
     return (
       <div onClick={this.edit}>
-        <span className='value'>{this.props.value}</span>
+        <span className="value">{this.props.value}</span>
         {this.props.onDelete ? this.renderDelete() : null}
       </div>
     )
@@ -45,7 +45,7 @@ class Editable extends React.Component {
 
   renderDelete() {
     return (
-      <button className='delete' onClick={this.props.onDelete}>
+      <button className="delete" onClick={this.props.onDelete}>
         &times;
       </button>
     )
@@ -59,7 +59,7 @@ class Editable extends React.Component {
     this.setState({editing: false})
   }
   checkEnter(e) {
-    if (e.key === "Enter") this.finishEdit(e)
+    if (e.key === 'Enter') this.finishEdit(e)
   }
 }
 

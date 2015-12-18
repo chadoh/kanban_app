@@ -127,7 +127,7 @@ if (TARGET === 'build' || TARGET === 'stats') {
       new webpack.DefinePlugin({
         'process.env': {
           // This affects react lib size
-          'NODE_ENV': "'production'"
+          'NODE_ENV': '"production"'
         }
       })
     ]

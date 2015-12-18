@@ -83,7 +83,7 @@ class LaneStore {
   findLane(id) {
     const lanes = this.lanes;
     const laneIndex = lanes.findIndex(lane => lane.id === id)
-    if (laneIndex < 0) console.warn("Failed to find lane with id", id, "in", lanes);
+    if (laneIndex < 0) console.warn('Failed to find lane with id', id, 'in', lanes);
     return laneIndex
   }
 
